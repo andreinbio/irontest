@@ -1,0 +1,8 @@
+[package]
+name = "irontest"
+version = "0.1.0"
+authors = ["Andrei Nagacevschi andrein_bio@yahoo.com"]
+
+[dependencies]
+iron="*"
+router="*"
