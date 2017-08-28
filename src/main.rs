@@ -1,6 +1,10 @@
 extern crate iron;
 extern crate router;
 extern crate rustview;
+extern crate serde;
+
+#[macro_use]
+extern crate serde_json;
 
 use rustview::view::View;
 
@@ -11,7 +15,12 @@ use router::Router;
 
 fn handler(req: &mut Request) -> IronResult<Response> {
     let template = View::new();
-    let mut response = Response::with((status::Ok, template.render("index.html")));
+    let model = json!({
+        "title": "Testing",
+        "newTitle": "New Cool Title here :)",
+        "helloUser": "Hi Andrei !"
+    });
+    let mut response = Response::with((status::Ok, template.render("index.html", model)));
     response.headers.set(ContentType::html());
     Ok(response)
 
@@ -22,6 +31,12 @@ fn main() {
     router.get("/", handler, "index");
     router.get("/:query", handler, "query");
 
+    let model = json!({
+        "title": "Testing",
+        "newTitle": "New Cool Title here :)",
+        "helloUser": "Hi Andrei !"
+    });
+    println!("Modle is: {:?}", model["title"]);
     println!("Server running at http://localhost:3000");
     Iron::new(router).http("localhost:3000").unwrap();
 }

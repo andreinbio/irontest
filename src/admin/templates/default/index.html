@@ -2,6 +2,11 @@
 <html>
     <head>
         <title>{{title}}</title>
+        {% block head_scripts %}
+        <script type="text/javascript">
+            console.error("index template here!!!!");
+        </script>
+        {% endblock %}
     </head>
     <body>
         <h1>{{newTitle}}</h1>
