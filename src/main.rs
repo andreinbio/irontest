@@ -31,12 +31,12 @@ fn main() {
     router.get("/", handler, "index");
     router.get("/:query", handler, "query");
 
-    let model = json!({
-        "title": "Testing",
-        "newTitle": "New Cool Title here :)",
-        "helloUser": "Hi Andrei !"
-    });
-    println!("Modle is: {:?}", model["title"]);
+    //let model = json!({
+    //    "title": json!({"name": "Andrei"}),
+    //    "newTitle": "New Cool Title here :)",
+    //    "helloUser": "Hi Andrei !"
+    //});
+    //println!("Modle is: {:?}", model["title"]["name"].as_str().unwrap());
     println!("Server running at http://localhost:3000");
     Iron::new(router).http("localhost:3000").unwrap();
 }

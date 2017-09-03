@@ -11,5 +11,9 @@
     <body>
         <h1>{{newTitle}}</h1>
         <h2>{{helloUser}}</h2>
+
+        {% block main_content %}
+        <p>Hello there, my name is {{helloUser}} and this is the main paragraph !</p>
+        {% endblock %}
     </body>
 </html>
