@@ -14,13 +14,13 @@ use iron::headers::{ContentType};
 use router::Router;
 
 fn handler(req: &mut Request) -> IronResult<Response> {
-    let template = View::new();
+    let admin_template = View::new("src/admin/templates/default/");
     let model = json!({
         "title": "Testing",
         "newTitle": "New Cool Title here :)",
         "helloUser": "Hi Andrei !"
     });
-    let mut response = Response::with((status::Ok, template.render("index.html", model)));
+    let mut response = Response::with((status::Ok, admin_template.render("index.html", model)));
     response.headers.set(ContentType::html());
     Ok(response)
 
@@ -31,12 +31,12 @@ fn main() {
     router.get("/", handler, "index");
     router.get("/:query", handler, "query");
 
-    //let model = json!({
+    // let model = json!({
     //    "title": json!({"name": "Andrei"}),
     //    "newTitle": "New Cool Title here :)",
     //    "helloUser": "Hi Andrei !"
-    //});
-    //println!("Modle is: {:?}", model["title"]["name"].as_str().unwrap());
+    // });
+    // println!("Modle is: {:?}", model.as_object().unwrap().keys().next().unwrap());
     println!("Server running at http://localhost:3000");
     Iron::new(router).http("localhost:3000").unwrap();
 }

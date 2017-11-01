@@ -6,12 +6,12 @@
         <script type="text/javascript">
             console.error("index template here!!!!");
         </script>
-            {% block jquery %}
-            <script type="text/javascript">
-                console.error("jquery script here");
-            </script>
-            {% endblock %}
-        {% endblock %}
+        {% endblock head_scripts %}
+        {% block jquery %}
+        <script type="text/javascript">
+            console.error("jquery script here");
+        </script>
+        {% endblock jquery %}
     </head>
     <body>
         <h1>{{newTitle}}</h1>
@@ -19,6 +19,6 @@
 
         {% block main_content %}
         <p>Hello there, my name is {{helloUser}} and this is the main paragraph !</p>
-        {% endblock %}
+        {% endblock main_content %}
     </body>
 </html>
