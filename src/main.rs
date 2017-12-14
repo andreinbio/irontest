@@ -18,7 +18,9 @@ fn handler(req: &mut Request) -> IronResult<Response> {
     let model = json!({
         "title": "Testing",
         "newTitle": "New Cool Title here :)",
-        "helloUser": "Hi Andrei !"
+        "helloUser": "Hi Andrei !",
+        "testText": "It's working!!!!!",
+        "user": "Andrei"
     });
     let mut response = Response::with((status::Ok, admin_template.render("index.html", model)));
     response.headers.set(ContentType::html());
@@ -26,10 +28,24 @@ fn handler(req: &mut Request) -> IronResult<Response> {
 
 }
 
+fn query_handler(req: &mut Request) -> IronResult<Response> {
+    let admin_template = View::new("src/admin/templates/default/");
+    let model = json!({
+        "title": "Testing The Home Page",
+        "newTitle": "Home Title Here",
+        "helloUser": "Hi Alex :) !",
+        "testText": "Homepage!!!!!",
+        "child_user": "Alex"
+    });
+    let mut response = Response::with((status::Ok, admin_template.render("home.html", model)));
+    response.headers.set(ContentType::html());
+    Ok(response)
+}
+
 fn main() {
     let mut router = Router::new();
     router.get("/", handler, "index");
-    router.get("/:query", handler, "query");
+    router.get("/:query", query_handler, "query");
 
     // let model = json!({
     //    "title": json!({"name": "Andrei"}),
