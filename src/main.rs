@@ -31,7 +31,7 @@ fn handler(req: &mut Request) -> IronResult<Response> {
 fn query_handler(req: &mut Request) -> IronResult<Response> {
     let admin_template = View::new("src/admin/templates/default/");
     let model = json!({
-        "title": "Testing The Home Page",
+        "title": "Sub Page",
         "newTitle": "Home Title Here",
         "helloUser": "Hi Alex :) !",
         "testText": "Homepage!!!!!",
