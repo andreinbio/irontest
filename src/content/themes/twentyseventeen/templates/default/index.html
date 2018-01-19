@@ -1,0 +1,25 @@
+<!Doctype html>
+<html>
+    <head>
+        <title>{{title}}</title>
+        {% block head_scripts %}
+        <script type="text/javascript">
+            console.error("index template here!!!!");
+        </script>
+        {% endblock head_scripts %}
+        {% block jquery %}
+        <script type="text/javascript">
+            console.error("jquery script here");
+        </script>
+        {% endblock jquery %}
+    </head>
+    <body>
+        <h1>{{newTitle}}</h1>
+        <h2>{{helloUser}}</h2>
+        <h3>{{testText}}</h3>
+
+        {% block main_content %}
+        <p>Hello there, my name is {{user}} and this is the main paragraph !</p>
+        {% endblock main_content %}
+    </body>
+</html>

@@ -27,9 +27,10 @@ impl Handler for Index {
             "newTitle": "New Cool Title here :)",
             "helloUser": "Hi Andrei !",
             "testText": "It's working!!!!!",
-            "user": "Andrei"
+            "user": "Andrei",
+            "child_user": "Home"
         });
-        let mut response = Response::with((status::Ok, self.template.render("index.html", model)));
+        let mut response = Response::with((status::Ok, self.template.render("home.html", model)));
 
         response.headers.set(ContentType::html());
         Ok(response)

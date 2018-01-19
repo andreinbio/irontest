@@ -14,6 +14,7 @@ use iron::headers::{ContentType};
 use router::Router;
 
 mod utils;
+mod content;
 mod controllers;
 mod routers;
 
