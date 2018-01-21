@@ -10,10 +10,10 @@ use self::controllers::Controllers;
 use utils;
 
 pub struct Router {
-    method: method::Method,
-    glob: String,
-    handler: Box<Handler>,
-    route_id: String
+    pub method: method::Method,
+    pub glob: String,
+    pub handler: Box<Handler>,
+    pub route_id: String
 }
 
 pub struct Content {
