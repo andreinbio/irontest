@@ -7,6 +7,9 @@ extern crate mount;
 extern crate toml;
 
 #[macro_use]
+extern crate serde_derive;
+
+#[macro_use]
 extern crate serde_json;
 
 use rustview::view::View;

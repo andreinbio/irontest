@@ -1,5 +1,7 @@
 use std::env;
 
+mod config;
+
 #[derive(Clone)]
 pub struct Utils {
     abspath: String,
@@ -36,4 +38,18 @@ impl Utils {
     pub fn get_content_path(&self) -> String {
         format!("{}/{}", &self.abspath[..], &self.content_path[..])
     }
+
+    /// # Load configuration file
+    fn load_file(&self, file_path: &str) -> String {
+        use std::fs::File;
+        use std::io::prelude::*;
+        use std::io::Read;
+
+        let mut f = File::open(file_path).expect("Unable to open");
+        let mut contents = String::new();
+        f.read_to_string(&mut contents).expect("Error reading file");
+
+        contents
+    }
+
 }
