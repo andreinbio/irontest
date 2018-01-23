@@ -21,12 +21,12 @@ pub struct Content {
 }
 
 impl Router {
-    fn new<H: Handler>(method: method::Method, glob: String, handler: H, route_id: String) -> Router {
+    fn new<H: Handler>(method: method::Method, glob: &str, handler: H, route_id: &str) -> Router {
         Router {
             method: method,
-            glob: glob,
+            glob: glob.to_string(),
             handler: Box::new(handler),
-            route_id: route_id,
+            route_id: route_id.to_string(),
         }
     }
 }
@@ -38,8 +38,8 @@ impl Content {
         let controllers = Controllers::new(utils, content_template);
         let mut my_routers: Vec<Router> = vec!();
 
-        my_routers.push(Router::new(method::Get, "/".to_string(), controllers.home, "home".to_string()));
-        my_routers.push(Router::new(method::Get, "/page".to_string(), controllers.page, "page".to_string()));
+        my_routers.push(Router::new(method::Get, "/", controllers.home, "home"));
+        my_routers.push(Router::new(method::Get, "/page", controllers.page, "page"));
 
         println!("routers length: {:?}", my_routers.len());
 

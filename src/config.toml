@@ -1,0 +1,7 @@
+[server]
+ip = "localhost"
+port = "3000"
+
+[paths]
+admin_templates = "src/admin/templates"
+content_themes = "src/content/themes"

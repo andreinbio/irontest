@@ -23,11 +23,7 @@ impl Index {
 impl Handler for Index {
     fn handle(&self, req: &mut Request) -> IronResult<Response> {
         let model = json!({
-            "title": "Testing",
-            "newTitle": "New Cool Title here :)",
-            "helloUser": "Hi Andrei !",
-            "testText": "It's working!!!!!",
-            "user": "Andrei"
+            "pageTitle": "Testing",
         });
         let mut response = Response::with((status::Ok, self.template.render("index.html", model)));
 

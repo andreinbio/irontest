@@ -8,4 +8,7 @@ iron="*"
 router="*"
 serde="*"
 serde_json="*"
+staticfile="*"
+mount="*"
+toml="*"
 rustview= {path = "../rustview"}

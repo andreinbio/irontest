@@ -2,6 +2,9 @@ extern crate iron;
 extern crate router;
 extern crate rustview;
 extern crate serde;
+extern crate staticfile;
+extern crate mount;
+extern crate toml;
 
 #[macro_use]
 extern crate serde_json;
