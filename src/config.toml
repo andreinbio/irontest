@@ -1,6 +1,6 @@
 [server]
 ip = "localhost"
-port = "3000"
+port = 3000
 
 [paths]
 templates_folder = "templates/"

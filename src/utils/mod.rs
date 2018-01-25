@@ -1,5 +1,5 @@
 use std::env;
-
+use toml;
 mod config;
 
 #[derive(Clone)]
@@ -50,6 +50,12 @@ impl Utils {
         f.read_to_string(&mut contents).expect("Error reading file");
 
         contents
+    }
+
+    /// # Parse toml file
+    pub fn get_config(&self, str: &str) -> config::Config {
+        let file_path = format!("{}/{}/{}.toml", &self.get_abs_path()[..], "src", str);
+        toml::from_str(&self.load_file(&file_path[..])[..]).unwrap()
     }
 
 }

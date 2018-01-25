@@ -4,10 +4,10 @@ extern crate rustview;
 extern crate serde;
 extern crate staticfile;
 extern crate mount;
-extern crate toml;
 
 #[macro_use]
 extern crate serde_derive;
+extern crate toml;
 
 #[macro_use]
 extern crate serde_json;
@@ -30,6 +30,7 @@ use controllers::Controllers;
 fn main() {
     //utils
     let m_utils = Utils::new();
+    println!("configuration: {:?}", m_utils.get_config("config").server.unwrap().port.unwrap());
     //admin template
     let admin_template = View::new(m_utils.get_admin_path());
     //controllers
