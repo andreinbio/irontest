@@ -30,7 +30,13 @@ use controllers::Controllers;
 fn main() {
     //utils
     let m_utils = Utils::new();
-    println!("configuration: {:?}", m_utils.get_config("config").server.unwrap().port.unwrap());
+    // println!("configuration: {:?}", m_utils.get_config("config").server.unwrap().port.unwrap());
+    // println!("configuration: {:?}", m_utils.get_config("config").get("test").unwrap());
+    // println!("configuration: {:?}", m_utils.get_config("config").get("test"));
+    m_utils.get_config("config").get("server.ip");
+
+
+
     //admin template
     let admin_template = View::new(m_utils.get_admin_path());
     //controllers

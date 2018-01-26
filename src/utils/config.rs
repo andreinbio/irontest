@@ -1,19 +1,48 @@
-#[derive(Debug, Deserialize)]
+// #[derive(Debug, Deserialize)]
+// struct Server {
+//     ip: Option<String>,
+//     port: Option<u64>,
+// }
+//
+// #[derive(Debug, Deserialize)]
+// struct Paths {
+//     template_folder: Option<String>,
+//     admin_theme: Option<String>,
+//     content_themes: Option<String>,
+//     active_theme: Option<String>,
+// }
+//
+// #[derive(Debug, Deserialize)]
+// pub struct Config {
+//     server: Option<Server>,
+//     paths: Option<Paths>,
+// }
+
+use toml;
+
 pub struct Config {
-    pub server: Option<Server>,
-    pub paths: Option<Paths>,
+    value: toml::Value
 }
 
-#[derive(Debug, Deserialize)]
-pub struct Server {
-    pub ip: Option<String>,
-    pub port: Option<u64>,
-}
+impl Config {
+    pub fn new(str: &str) -> Config {
+        Config {
+            value: str.parse::<toml::Value>().unwrap()
+        }
+    }
 
-#[derive(Debug, Deserialize)]
-pub struct Paths {
-    pub template_folder: Option<String>,
-    pub admin_theme: Option<String>,
-    pub content_themes: Option<String>,
-    pub active_theme: Option<String>,
+    pub fn get(&self, str: &str) ->() {// toml::Value {
+        let mut config_object: toml::Value;
+        let strings: Vec<&str> = str.split(".").collect::<Vec<&str>>();
+
+        for item in &strings {
+            match self.value.get(item) {
+                Some(value) => println!("Some is: {:?}", value),
+                None => println!("None is: none"),
+            }
+            println!("string is : {:?}", item);
+        }
+
+        // println!("test... is: {:?}", strings);
+    }
 }
