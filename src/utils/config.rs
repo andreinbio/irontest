@@ -19,35 +19,16 @@ impl Config {
 
         for item in &strings {
             match self.value.get(item) {
-                Some(value) => match *value {
-                    toml::Value::String(ref string) => {
-                        result = Some(value.clone());
-                        break;
-                    },
-                    toml::Value::Integer(ref integer) => {
-                        result = Some(value.clone());
-                        break;
-                    },
-                    toml::Value::Float(ref float) => {
-                        result = Some(value.clone());
-                        break;
-                    },
-                    toml::Value::Boolean(ref boolean) => {
-                        result = Some(value.clone());
-                        break;
-                    },
-                    toml::Value::Datetime(ref datetime) => {
-                        result = Some(value.clone());
-                        break;
-                    },
-                    toml::Value::Array(ref array) => {
-                        config_value = value.clone();
-                        result = Some(value.clone());
-                    },
-                    toml::Value::Table(ref table) => {
-                        config_value = value.clone();
-                        result = Some(value.clone());
-                    },
+                Some(value) => {
+                    result = Some(value.clone());
+                    match *value {
+                        toml::Value::Array(_) | toml::Value::Table(_) => {
+                            config_value = value.clone();
+                        },
+                        _ => {
+                            break;
+                        },
+                    }
                 },
                 None => (),
             }
@@ -58,7 +39,8 @@ impl Config {
     }
 
     /// # Checks if the value of the preference is true
-    pub fn is(&self, str: &str) -> () {
-
+    pub fn is(&self, str: &str) -> bool {
+        let value: Option<toml::Value> = *self.get(str);
+        value.is_some()
     }
 }
