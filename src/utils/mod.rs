@@ -55,8 +55,6 @@ impl Utils {
     /// # Parse toml file
     pub fn get_config(&self, str: &str) -> config::Config {
         let file_path = format!("{}/{}/{}.toml", &self.get_abs_path()[..], "src", str);
-        // toml::from_str(&self.load_file(&file_path[..])[..]).unwrap()
-        // (&self.load_file(&file_path[..])[..]).parse::<toml::Value>().unwrap()
         config::Config::new(&self.load_file(&file_path[..])[..])
     }
 

@@ -7,3 +7,9 @@ templates_folder = "templates/"
 admin_theme = "src/admin/"
 content_themes = "src/content/themes"
 active_theme = "twentyeighteen"
+
+[variables]
+redirect = false
+show_modal = true
+rustview= {path = "../rustview"}
+array = ["car", "house"]

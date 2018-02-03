@@ -1,27 +1,7 @@
-// #[derive(Debug, Deserialize)]
-// struct Server {
-//     ip: Option<String>,
-//     port: Option<u64>,
-// }
-//
-// #[derive(Debug, Deserialize)]
-// struct Paths {
-//     template_folder: Option<String>,
-//     admin_theme: Option<String>,
-//     content_themes: Option<String>,
-//     active_theme: Option<String>,
-// }
-//
-// #[derive(Debug, Deserialize)]
-// pub struct Config {
-//     server: Option<Server>,
-//     paths: Option<Paths>,
-// }
-
 use toml;
 
 pub struct Config {
-    value: toml::Value
+    value: toml::Value,
 }
 
 impl Config {
@@ -31,18 +11,54 @@ impl Config {
         }
     }
 
-    pub fn get(&self, str: &str) ->() {// toml::Value {
-        let mut config_object: toml::Value;
+    /// # Get the value of the preference
+    pub fn get(&mut self, str: &str) -> Option<toml::Value> {
         let strings: Vec<&str> = str.split(".").collect::<Vec<&str>>();
+        let mut result: Option<toml::Value> = None;
+        let mut config_value: toml::Value = self.value.clone();
 
         for item in &strings {
             match self.value.get(item) {
-                Some(value) => println!("Some is: {:?}", value),
-                None => println!("None is: none"),
+                Some(value) => match *value {
+                    toml::Value::String(ref string) => {
+                        result = Some(value.clone());
+                        break;
+                    },
+                    toml::Value::Integer(ref integer) => {
+                        result = Some(value.clone());
+                        break;
+                    },
+                    toml::Value::Float(ref float) => {
+                        result = Some(value.clone());
+                        break;
+                    },
+                    toml::Value::Boolean(ref boolean) => {
+                        result = Some(value.clone());
+                        break;
+                    },
+                    toml::Value::Datetime(ref datetime) => {
+                        result = Some(value.clone());
+                        break;
+                    },
+                    toml::Value::Array(ref array) => {
+                        config_value = value.clone();
+                        result = Some(value.clone());
+                    },
+                    toml::Value::Table(ref table) => {
+                        config_value = value.clone();
+                        result = Some(value.clone());
+                    },
+                },
+                None => (),
             }
-            println!("string is : {:?}", item);
+            self.value = config_value.clone();
         }
 
-        // println!("test... is: {:?}", strings);
+        result
+    }
+
+    /// # Checks if the value of the preference is true
+    pub fn is(&self, str: &str) -> () {
+
     }
 }
