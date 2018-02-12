@@ -30,13 +30,6 @@ use controllers::Controllers;
 fn main() {
     //utils
     let m_utils = Utils::new();
-    let pref_value = m_utils.get_config("config").get("variables.show_modal");
-
-    if pref_value.is_some() {
-        println!("value is: {:?}", pref_value.unwrap());
-    }
-
-
 
     //admin template
     let admin_template = View::new(m_utils.get_admin_path());

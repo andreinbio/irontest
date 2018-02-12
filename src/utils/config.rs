@@ -1,46 +1,54 @@
 use toml;
 
 pub struct Config {
-    value: toml::Value,
+    value: Option<toml::Value>,
 }
 
 impl Config {
     pub fn new(str: &str) -> Config {
         Config {
-            value: str.parse::<toml::Value>().unwrap()
+            value: str.parse::<toml::Value>().ok()
         }
     }
 
     /// # Get the value of the preference
-    pub fn get(&mut self, str: &str) -> Option<toml::Value> {
+    pub fn get(&self, str: &str) -> Option<&toml::Value> {
         let strings: Vec<&str> = str.split(".").collect::<Vec<&str>>();
-        let mut result: Option<toml::Value> = None;
-        let mut config_value: toml::Value = self.value.clone();
+        let mut config_value: Option<&toml::Value> = self.value.as_ref();
 
         for item in &strings {
-            match self.value.get(item) {
-                Some(value) => {
-                    result = Some(value.clone());
-                    match *value {
-                        toml::Value::Array(_) | toml::Value::Table(_) => {
-                            config_value = value.clone();
-                        },
-                        _ => {
-                            break;
-                        },
-                    }
-                },
-                None => (),
+            if config_value.is_some() {
+                match config_value.unwrap().get(item) {
+                    Some(value) => {
+                        config_value = Some(value);
+                        match *value {
+                            toml::Value::Array(_) | toml::Value::Table(_) => {
+                                config_value = Some(value);
+                            },
+                            _ => {
+                                break;
+                            },
+                        }
+                    },
+                    None => {
+                        config_value = None;
+                        break;
+                    },
+                }
             }
-            self.value = config_value.clone();
         }
 
-        result
+        config_value
     }
 
-    /// # Checks if the value of the preference is true
-    pub fn is(&self, str: &str) -> bool {
-        let value: Option<toml::Value> = *self.get(str);
-        value.is_some()
+    /// # Checks if the value of the preference is boolean true
+    pub fn is(&self, str: &str) -> Option<bool> {
+        let value: Option<&toml::Value> = self.get(str);
+
+        if value.is_some() {
+            return value.unwrap().as_bool()
+        } else {
+            return None
+        }
     }
 }

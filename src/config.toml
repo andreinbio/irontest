@@ -3,13 +3,9 @@ ip = "localhost"
 port = 3000
 
 [paths]
-templates_folder = "templates/"
-admin_theme = "src/admin/"
-content_themes = "src/content/themes"
+admin_folder = "admin"
+content_folder = "content"
+content_themes = "themes"
+templates_folder = "templates"
 active_theme = "twentyeighteen"
-
-[variables]
-redirect = false
-show_modal = true
-rustview= {path = "../rustview"}
-array = ["car", "house"]
+test = true
