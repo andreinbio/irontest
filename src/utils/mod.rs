@@ -6,8 +6,6 @@ mod config;
 pub struct Utils {
     base_folder: String,
     abspath: String,
-    admin_path: String,
-    content_path: String,
 }
 
 impl Utils {
@@ -15,16 +13,19 @@ impl Utils {
         Utils {
             base_folder: String::from("src"),
             abspath: String::from(env::current_dir().unwrap().to_str().unwrap()),
-            admin_path: Utils::get_current_lang_path("src/admin/templates/"),
-            content_path: Utils::get_current_lang_path("src/admin/templates/"),
         }
     }
 
     /// # Get current lang
     // update code to check for other locales
-    fn get_current_lang_path(s: &str) -> String {
+    fn get_current_lang_path(&self, s: &str) -> String {
         //@TODO more logic here to get the template for the current language
-        format!("{}{}", s, "default/")
+        format!("{}/{}", s, "default/")
+    }
+
+    /// # Get base folder
+    fn get_base_folder(&self) -> String {
+        self.base_folder.clone()
     }
 
     /// # Get absolute path
@@ -34,27 +35,40 @@ impl Utils {
 
     /// # Get admin path
     pub fn get_admin_path(&self) -> String {
-        // format!("{}/{}", &self.abspath[..], &self.admin_path[..])
-        // format!("{}/{}", )
-        // src, admin / templates / default /
         let config_object = self.get_config("config");
-        let admin_folder = config_object.get("server.port");
-
+        let admin_folder = config_object.get("paths.admin_folder");
         if admin_folder.is_none() {
             panic!("no 'admin_folder' configuration exist!");
         }
-
-        println!("admin_folder is: {:?}", admin_folder.unwrap().as_integer().unwrap());
-        // let admin_folder_name = admin_folder.unwrap().unwrap();
-        //
-        // println!("port is : {:?}", admin_folder_name);
-
-        String::from("")
+        let templates_folder = config_object.get("paths.templates_folder");
+        if templates_folder.is_none() {
+            panic!("no 'templates_folder' configuration exist!");
+        }
+        let admin_path: String = format!("{}/{}/{}/{}", self.get_abs_path(), self.get_base_folder(), admin_folder.unwrap().as_str().unwrap(), templates_folder.unwrap().as_str().unwrap());
+        self.get_current_lang_path(&admin_path[..])
     }
 
     /// # Get content path
     pub fn get_content_path(&self) -> String {
-        format!("{}/{}", &self.abspath[..], &self.content_path[..])
+        let config_object = self.get_config("config");
+        let content_folder = config_object.get("paths.content_folder");
+        if content_folder.is_none() {
+            panic!("no 'admin_folder' configuration exist!");
+        }
+        let themes_folder = config_object.get("paths.content_themes");
+        if themes_folder.is_none() {
+            panic!("no 'themes_folder' configuraion exist!");
+        }
+        let active_theme = config_object.get("paths.active_theme");
+        if active_theme.is_none() {
+            panic!("no 'active_theme' configuraion exist!");
+        }
+        let templates_folder = config_object.get("paths.templates_folder");
+        if templates_folder.is_none() {
+            panic!("no 'templates_folder' configuration exist!");
+        }
+        let content_path: String = format!("{}/{}/{}/{}/{}/{}", self.get_abs_path(), self.get_base_folder(), content_folder.unwrap().as_str().unwrap(), themes_folder.unwrap().as_str().unwrap(), active_theme.unwrap().as_str().unwrap(), templates_folder.unwrap().as_str().unwrap());
+        self.get_current_lang_path(&content_path[..])
     }
 
     /// # Load configuration file
