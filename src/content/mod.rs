@@ -2,7 +2,7 @@ use iron::prelude::*;
 use iron::middleware::Handler;
 use iron::method;
 use utils::Utils;
-use rustview::view::View;
+use rustyview::View;
 
 mod controllers;
 use self::controllers::Controllers;
@@ -43,7 +43,7 @@ impl Content {
 
         println!("routers length: {:?}", my_routers.len());
 
-        Content { routers: my_routers}
+        Content { routers: my_routers }
     }
 
     pub fn get_routers(self) -> Vec<Router> {

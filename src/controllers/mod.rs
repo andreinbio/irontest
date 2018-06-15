@@ -1,5 +1,5 @@
 use utils::Utils;
-use rustview::view::View;
+use rustyview::View;
 
 mod admin;
 

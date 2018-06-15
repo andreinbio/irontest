@@ -1,6 +1,6 @@
 use iron::middleware::Handler;
 use utils::Utils;
-use rustview::view::View;
+use rustyview::View;
 
 pub mod home;
 pub mod page;

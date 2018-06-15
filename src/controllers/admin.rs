@@ -4,7 +4,7 @@ use iron::status;
 use iron::headers::{ContentType};
 
 use utils::Utils;
-use rustview::view::View;
+use rustyview::View;
 
 pub struct Index {
     utils: Utils,

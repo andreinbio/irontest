@@ -12,4 +12,4 @@ serde_derive="*"
 staticfile="*"
 mount="*"
 toml="*"
-rustview= {path = "../rustview"}
+rustyview= {path = "../rustyview"}
